@@ -21,13 +21,29 @@ Endpoints:
         argument: city_id
 
 Error Handling:
+    I have applied error handling throughout the api, including at the endpoints, the weather API and the database access. 
 
 
 Database Schema:
+    ER Diagram.png
 
 Project Structure:
+    RA2_Interview_Project
+    |- Code
+        |-Initiate_Database.py 
+        |-Retrieve_Weather_Data.py 
+        |-main.py 
+        |-SQLite_Database.py 
+    |- ER Diagram.png
+    |- RA2_Project_Database.db
+    |-ReadMe.md
+    |-tests.py
+    |-RA2 Python Developer Coding Challenge.pdf
 
 Trade-Offs:
+    I used flask over fast api since i have more experience with flask
+    I chose SQLite over PostgreSQL since i have more experience with SQLite
+    I tried to separate the functionalities into different files but due to threading issues i had to combine some functions into a file
 
 Improvements:
     -> Docker File
