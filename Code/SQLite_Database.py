@@ -99,3 +99,11 @@ REQUESTS_TABLE_COLUMNS = REQUEST_ID_COLUMN_INFORMATION+', '+REQUEST_RESPONSE_STA
 #Log each weather request in a database table, including at minimum: 
 #    timestamp, requested city_id, and the response status (success/failure)
 active_database.create_table(WEATHER_REQUEST_TABLE_NAME,REQUESTS_TABLE_COLUMNS)
+
+DUMMY_RESPONSES=['one','two','three']
+DUMMY_CITY_IDS=[2,3,1]
+DUMMY_SUMMARIES=['sunny','windy','cloudy']
+
+for index in range (0,len(DUMMY_RESPONSES)):
+    active_database.add_entity(WEATHER_REQUEST_TABLE_NAME,f'{REQUEST_RESPONSE_STATUS_COLUMN_NAME}, {REQUEST_CITY_ID_COLUMN_NAME}, {REQUEST_SUMMARY_COLUMN_NAME}',f'"{DUMMY_RESPONSES[index]}",{DUMMY_CITY_IDS[index]},"{DUMMY_SUMMARIES[index]}"')
+
