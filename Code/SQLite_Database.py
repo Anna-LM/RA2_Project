@@ -37,3 +37,31 @@ class SQLiteDatabase:
     def close_database(self):
         self.conn.close()
 
+
+
+DATABASE_NAME = 'RA2_Project_Database'
+CITIES_TABLE_NAME = 'Preset_Cities_Table'
+
+CITY_ID_COLUMN_NAME = 'city_id'
+CITY_ID_TYPE = 'INTEGER'
+CITY_ID_KEY  = 'PRIMARY KEY'
+CITY_ID_COLUMN_INFORMATION = CITY_ID_COLUMN_NAME +' '+CITY_ID_TYPE+ ' '+CITY_ID_KEY
+ 
+CITY_NAME_COLUMN_NAME = 'city_name'
+CITY_NAME_TYPE = 'TEXT'
+CITY_NAME_KEY  = 'UNIQUE'
+CITY_NAME_COLUMN_INFORMATION = CITY_NAME_COLUMN_NAME +' '+CITY_NAME_TYPE+ ' '+CITY_NAME_KEY
+ 
+CITIES_TABLE_COLUMNS = CITY_ID_COLUMN_INFORMATION+', '+CITY_NAME_COLUMN_INFORMATION
+
+CITIES=['Vancouver','Toronto','Quebec','Winnipeg','Calgary','Edmonton','Victoria','Saskatoon']
+
+#Creating the database <<DATABASE_NAME>> 
+active_database = SQLiteDatabase(DATABASE_NAME)
+#Create a table of preset cities with at least city_id and city_name
+active_database.create_table(CITIES_TABLE_NAME,CITIES_TABLE_COLUMNS)
+
+#Adding the cities as entities in the database
+for city in CITIES:
+    active_database.add_entity(CITIES_TABLE_NAME,CITY_NAME_COLUMN_NAME,f"'{city}'")
+
