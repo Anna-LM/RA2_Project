@@ -26,7 +26,7 @@ class SQLiteDatabase:
 
             self.c.execute(search_statement)
             entities = self.c.fetchall()
-            print(entities)
+            return(entities)
  
     #Adding entities/rows to the table <<table_name>>
     def add_entity(self,table_name,column,value):
@@ -41,3 +41,23 @@ class SQLiteDatabase:
     #Closing the database, this must be done every time the database is accessed
     def close_database(self):
         self.conn.close()
+
+
+def return_five_most_recent():
+    #open the database made in <<Initiate_Database.py>> 
+    DATABASE_NAME = 'RA2_Project_Database'
+    active_database = SQLiteDatabase(DATABASE_NAME)
+        
+    CITIES_TABLE_NAME = 'Preset_Cities_Table'
+    REQUEST_CITY_ID_COLUMN_NAME = 'city_id'
+    CITY_ID_COLUMN_NAME = 'city_id'
+    WEATHER_REQUEST_TABLE_NAME = 'Weather_Request_Log_Table'
+    SEARCH_RETURN_CATEGORIES = 'timestamp, Weather_Summary, city_name'
+    WHERE_CONDITION = 'response_status="success"'
+    ORDER_CONDITION = 'timestamp DESC'
+    LIMIT_CONDITION = 5
+    FOREIGN_KEY_CONDITION = f'INNER JOIN {CITIES_TABLE_NAME} ON {CITIES_TABLE_NAME}.{CITY_ID_COLUMN_NAME} = {WEATHER_REQUEST_TABLE_NAME}.{REQUEST_CITY_ID_COLUMN_NAME}'
+
+    return(str(active_database.search_table(SEARCH_RETURN_CATEGORIES,WEATHER_REQUEST_TABLE_NAME,WHERE_CONDITION,ORDER_CONDITION,LIMIT_CONDITION,FOREIGN_KEY_CONDITION)))
+
+
