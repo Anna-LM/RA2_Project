@@ -107,17 +107,4 @@ for index in range (0,len(DUMMY_RESPONSES)):
     active_database.add_entity(WEATHER_REQUEST_TABLE_NAME,f'{REQUEST_RESPONSE_STATUS_COLUMN_NAME}, {REQUEST_CITY_ID_COLUMN_NAME}, {REQUEST_SUMMARY_COLUMN_NAME}',f'"{DUMMY_RESPONSES[index]}",{DUMMY_CITY_IDS[index]},"{DUMMY_SUMMARIES[index]}"')
 
 
-
-#Create a history endpoint that returns data for the 5 most recent successful 
-#    requests to the weather endpoint. Include the timestamp, city name, and 
-#    a summary of the weather data returned for each request.
-    
-SEARCH_RETURN_CATEGORIES = 'timestamp, Weather_Summary, city_name'
-WHERE_CONDITION = 'response_status="success"'
-ORDER_CONDITION = 'timestamp DESC'
-LIMIT_CONDITION = 5
-FOREIGN_KEY_CONDITION = f'INNER JOIN {CITIES_TABLE_NAME} ON {CITIES_TABLE_NAME}.{CITY_ID_COLUMN_NAME} = {WEATHER_REQUEST_TABLE_NAME}.{REQUEST_CITY_ID_COLUMN_NAME}'
-
-active_database.search_table(SEARCH_RETURN_CATEGORIES,WEATHER_REQUEST_TABLE_NAME,WHERE_CONDITION,ORDER_CONDITION,LIMIT_CONDITION,FOREIGN_KEY_CONDITION)
-
 active_database.close_database()

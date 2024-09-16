@@ -45,6 +45,7 @@ class SQLiteDatabase:
 
 def return_five_most_recent():
     #open the database made in <<Initiate_Database.py>> 
+    #had to be done in same thread as opening database
     DATABASE_NAME = 'RA2_Project_Database'
     active_database = SQLiteDatabase(DATABASE_NAME)
         
@@ -57,7 +58,22 @@ def return_five_most_recent():
     ORDER_CONDITION = 'timestamp DESC'
     LIMIT_CONDITION = 5
     FOREIGN_KEY_CONDITION = f'INNER JOIN {CITIES_TABLE_NAME} ON {CITIES_TABLE_NAME}.{CITY_ID_COLUMN_NAME} = {WEATHER_REQUEST_TABLE_NAME}.{REQUEST_CITY_ID_COLUMN_NAME}'
+    five_most_recent = str(active_database.search_table(SEARCH_RETURN_CATEGORIES,WEATHER_REQUEST_TABLE_NAME,WHERE_CONDITION,ORDER_CONDITION,LIMIT_CONDITION,FOREIGN_KEY_CONDITION))
+    active_database.close_database()
+    return(five_most_recent)
 
-    return(str(active_database.search_table(SEARCH_RETURN_CATEGORIES,WEATHER_REQUEST_TABLE_NAME,WHERE_CONDITION,ORDER_CONDITION,LIMIT_CONDITION,FOREIGN_KEY_CONDITION)))
+
+def add_search_to_database(response,city_id,summary):
+    #open the database made in <<Initiate_Database.py>> 
+    #had to be done in same thread as opening database
+    WEATHER_REQUEST_TABLE_NAME = 'Weather_Request_Log_Table'
+    DATABASE_NAME = 'RA2_Project_Database'
+    REQUEST_RESPONSE_STATUS_COLUMN_NAME = 'response_status'
+    REQUEST_CITY_ID_COLUMN_NAME = 'city_id'
+    REQUEST_SUMMARY_COLUMN_NAME = 'weather_summary'
+
+    active_database = SQLiteDatabase(DATABASE_NAME)
+    active_database.add_entity(WEATHER_REQUEST_TABLE_NAME,f'{REQUEST_RESPONSE_STATUS_COLUMN_NAME}, {REQUEST_CITY_ID_COLUMN_NAME}, {REQUEST_SUMMARY_COLUMN_NAME}',f'"{response}",{city_id},"{summary}"')
+    active_database.close_database()
 
 

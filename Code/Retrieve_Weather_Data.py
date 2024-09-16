@@ -16,8 +16,8 @@ def Get_Weather (api_key,latitude,longitude):
     response_code = response['cod']
 
     if response_code == CORRECT_REPONSE_CODE:
-        return((response['weather'])[0]['description'])
+        return([200,(response['weather'])[0]['description']])
 
     else:
-        return(response_code)
+        return([response_code,None])
 
