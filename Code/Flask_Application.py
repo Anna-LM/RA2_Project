@@ -15,16 +15,16 @@ def return_history():
     return "Most Recent searches ... " , 200
 
 #Error Handling with Flask Endpoints
-#ToDo: add more detailed error messages
 @app.errorhandler(HTTPException)
 def handle_exception(e): 
     response = e.get_response()
+
     if e.code == 405:
-        response = 'Please use Get'
+        response = 'Please use GET request i.e. GET: http://127.0.0.1:5000/history, GET: http://127.0.0.1:5000/weather?city_id=1'
     elif e.code == 404:
-        response = 'Please use weather or history'
+        response = 'Please use weather or history endpoints i.e. GET: http://127.0.0.1:5000/history, GET: http://127.0.0.1:5000/weather?city_id=1'
     else:
-        response = 'Unprecidented error, please try again'
+        response = 'Unprecidented error, please try again i.e. GET: http://127.0.0.1:5000/history, GET: http://127.0.0.1:5000/weather?city_id=1'
 
     return response
 
