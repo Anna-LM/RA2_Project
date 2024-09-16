@@ -68,16 +68,18 @@ def return_weather():
         if weather_api_response[RESPONSE_INDEX_CODE]==CORRECT_REPONSE_CODE:
             add_search_to_database('success',city_id,weather_api_response[RESPONSE_INDEX_WEATHER_SUMMARY])
             ra2_api_response = f' Weather in {CITIES_DICTIONARY[city_id]} {weather_api_response[RESPONSE_INDEX_WEATHER_SUMMARY]}'
-        elif weather_api_response[RESPONSE_INDEX_CODE]==BAD_REQUEST_ERROR_CODE:
-            ra2_api_response = 'Bad Request'
-        elif weather_api_response[RESPONSE_INDEX_CODE]==LON_LAT_ERROR_CODE:
-            ra2_api_response = 'Lonitude/Latitude Error'
-        elif weather_api_response[RESPONSE_INDEX_CODE]==TOO_MANY_REQUESTS_ERROR_CODE:
-            ra2_api_response = 'Too Many Requests Error'
-        elif weather_api_response[RESPONSE_INDEX_CODE]==API_KEY_ERROR_CODE:
-            ra2_api_response = 'API Key Error'
-        elif weather_api_response[RESPONSE_INDEX_CODE]==INTERNAL_ERROR_CODE:
-            ra2_api_response = 'WEB API Error'
+        else:   
+            if weather_api_response[RESPONSE_INDEX_CODE]==BAD_REQUEST_ERROR_CODE:
+                ra2_api_response = 'Bad Request'
+            elif weather_api_response[RESPONSE_INDEX_CODE]==LON_LAT_ERROR_CODE:
+                ra2_api_response = 'Lonitude/Latitude Error'
+            elif weather_api_response[RESPONSE_INDEX_CODE]==TOO_MANY_REQUESTS_ERROR_CODE:
+                ra2_api_response = 'Too Many Requests Error'
+            elif weather_api_response[RESPONSE_INDEX_CODE]==API_KEY_ERROR_CODE:
+                ra2_api_response = 'API Key Error'
+            elif weather_api_response[RESPONSE_INDEX_CODE]==INTERNAL_ERROR_CODE:
+                ra2_api_response = 'WEB API Error'      
+            add_search_to_database('failure',city_id,'None')    
 
         return ra2_api_response , 200 
     else:
