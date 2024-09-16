@@ -8,7 +8,7 @@ DATABASE_NAME = 'RA2_Project_Database'
 active_database = SQLiteDatabase(DATABASE_NAME)
 
 #ToDo: get key from other file
-API_KEY="123"
+API_KEY="57ba810bdb5f5e12087fa6eb089ec8d9"
 
 
 app = Flask(__name__)
