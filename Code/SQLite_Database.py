@@ -105,7 +105,7 @@ REQUESTS_TABLE_COLUMNS = REQUEST_ID_COLUMN_INFORMATION+', '+REQUEST_RESPONSE_STA
 #    timestamp, requested city_id, and the response status (success/failure)
 active_database.create_table(WEATHER_REQUEST_TABLE_NAME,REQUESTS_TABLE_COLUMNS)
 
-DUMMY_RESPONSES=['one','two','three']
+DUMMY_RESPONSES=['success','failure','success']
 DUMMY_CITY_IDS=[2,3,1]
 DUMMY_SUMMARIES=['sunny','windy','cloudy']
 
@@ -118,5 +118,12 @@ for index in range (0,len(DUMMY_RESPONSES)):
 #    requests to the weather endpoint. Include the timestamp, city name, and 
 #    a summary of the weather data returned for each request.
     
+SEARCH_RETURN_CATEGORIES = 'timestamp, Weather_Summary, city_name'
+WHERE_CONDITION = 'response_status="success"'
+ORDER_CONDITION = 'timestamp DESC'
+LIMIT_CONDITION = 5
+
+FOREIGN_KEY_CONDITION = f'INNER JOIN {CITIES_TABLE_NAME} ON {CITIES_TABLE_NAME}.{CITY_ID_COLUMN_NAME} = {WEATHER_REQUEST_TABLE_NAME}.{REQUEST_CITY_ID_COLUMN_NAME}'
+active_database.search_table(SEARCH_RETURN_CATEGORIES,WEATHER_REQUEST_TABLE_NAME,WHERE_CONDITION,ORDER_CONDITION,LIMIT_CONDITION,FOREIGN_KEY_CONDITION)
 
 active_database.close_database()
