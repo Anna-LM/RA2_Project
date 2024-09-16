@@ -50,7 +50,7 @@ def return_weather():
                 "LATITUDE" : 53.5461
             }
         }
-    if city_id:
+    if city_id in CITIES_DICTIONARY:
         BAD_REQUEST_ERROR_CODE = 400
         API_KEY_ERROR_CODE = 401
         LON_LAT_ERROR_CODE = 404
@@ -79,8 +79,13 @@ def return_weather():
         elif weather_api_response[RESPONSE_INDEX_CODE]==INTERNAL_ERROR_CODE:
             ra2_api_response = 'WEB API Error'
 
+        return ra2_api_response , 200 
+    else:
+        #ToDo: improve this resposne
+        ra2_api_response = 'Not in List of Cities choose 1:6'
 
-    return ra2_api_response , 200
+
+        return ra2_api_response , 200
 
 #ToDo: Make returned data more readable
 @app.route('/history', methods=['GET'])
