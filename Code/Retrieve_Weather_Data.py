@@ -1,7 +1,7 @@
 import requests, json
 
 #ToDo: save API key securely
-API_KEY = #...
+API_KEY = '1234567'
 
 #ToDo: add long and lat to sqlite database
 LATITUDE = 12

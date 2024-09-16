@@ -57,9 +57,44 @@ CITY_NAME_TYPE = 'TEXT'
 CITY_NAME_KEY  = 'UNIQUE'
 CITY_NAME_COLUMN_INFORMATION = CITY_NAME_COLUMN_NAME +' '+CITY_NAME_TYPE+ ' '+CITY_NAME_KEY
  
-CITIES_TABLE_COLUMNS = CITY_ID_COLUMN_INFORMATION+', '+CITY_NAME_COLUMN_INFORMATION
+CITY_LONGITUDE_COLUMN_NAME = 'city_longitude'
+CITY_LONGITUDE_TYPE = 'REAL'
+CITY_LONGITUDE_COLUMN_INFORMATION = CITY_LONGITUDE_COLUMN_NAME +' '+CITY_LONGITUDE_TYPE
+
+CITY_LATITUDE_COLUMN_NAME = 'city_latitude'
+CITY_LATITUDE_TYPE = 'REAL'
+CITY_LATITUDE_COLUMN_INFORMATION = CITY_LATITUDE_COLUMN_NAME +' '+CITY_LATITUDE_TYPE
+ 
+CITIES_TABLE_COLUMNS = CITY_ID_COLUMN_INFORMATION+', '+CITY_NAME_COLUMN_INFORMATION+', '+ CITY_LONGITUDE_COLUMN_INFORMATION+', '+CITY_LATITUDE_COLUMN_INFORMATION
 
 CITIES=['Vancouver','Toronto','Quebec','Winnipeg','Calgary','Edmonton','Victoria','Saskatoon']
+
+CITIES_DICTIONARY = {
+    "Vancouver" : {
+        "LONGITUDE" : 123.1207,
+        "LATITUDE" : 49.2827
+    },
+    "Quebec" : {
+        "LONGITUDE" : 71.2075,
+        "LATITUDE" : 46.8131
+    },
+    "Toronto" : {
+        "LONGITUDE" :79.3832,
+        "LATITUDE" : 43.6532
+    },
+    "Winnipeg" : {
+        "LONGITUDE" : 97.1385,
+        "LATITUDE" : 49.8954
+    },
+    "Calgary" : {
+        "LONGITUDE" : 114.0719,
+        "LATITUDE" : 51.0447
+    },
+    "Edmonton" : {
+        "LONGITUDE" : 113.4937,
+        "LATITUDE" : 53.5461
+    }
+}
 
 #Creating the database <<DATABASE_NAME>> 
 active_database = SQLiteDatabase(DATABASE_NAME)
@@ -67,8 +102,8 @@ active_database = SQLiteDatabase(DATABASE_NAME)
 active_database.create_table(CITIES_TABLE_NAME,CITIES_TABLE_COLUMNS)
 
 #Adding the cities as entities in the database
-for city in CITIES:
-    active_database.add_entity(CITIES_TABLE_NAME,CITY_NAME_COLUMN_NAME,f"'{city}'")
+for city in CITIES_DICTIONARY:
+    active_database.add_entity(CITIES_TABLE_NAME,f'{CITY_NAME_COLUMN_NAME},{CITY_LONGITUDE_COLUMN_NAME},{CITY_LATITUDE_COLUMN_NAME}',f"'{city}','{CITIES_DICTIONARY[city]['LONGITUDE']}','{CITIES_DICTIONARY[city]['LATITUDE']}'")
 
 
 # --- Weather Response Table ---
