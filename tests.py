@@ -48,7 +48,7 @@ class TestWeathers(unittest.TestCase):
                 "LATITUDE" : 53.5461
             }
         }
-        API_KEY = "57ba810bdb5f5e12087fa6eb089ec8d9"
+        API_KEY = "123"
         
         for city in CITIES_DICTIONARY:  
             longitude = CITIES_DICTIONARY[city]['LONGITUDE']
