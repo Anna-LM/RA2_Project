@@ -12,16 +12,21 @@ class SQLiteDatabase:
         self.c.execute(f'CREATE TABLE IF NOT EXISTS {table_name} ({table_columns_information})')
         self.conn.commit()
     
-    #Searching a for an entity in the table <<table_name>> based on a condition
-    def search_table(self,search_selection, table_name,search_condition):
-        search_statement = f'SELECT {search_selection} FROM {table_name} '
+    #Searching a for an entity in the table <<table_name>> based on conditions
+    def search_table(self,what, table_name,search_condition,order_condition,limit_condition,foreign_key_condition):
+            search_statement = f'SELECT {what} FROM {table_name} '
+            if search_condition:
+                search_statement=search_statement+ f'{foreign_key_condition} '
+            if search_condition:
+                search_statement=search_statement+ f'WHERE {search_condition} '
+            if order_condition:
+                search_statement=search_statement+ f'ORDER BY {order_condition} '
+            if limit_condition:
+                search_statement=search_statement+ f'LIMIT {limit_condition} '
 
-        if search_condition:
-            search_statement=search_statement+ f'WHERE {search_condition} '
-
-        self.c.execute(search_statement)
-        entities = self.c.fetchall()
-        print(entities)
+            self.c.execute(search_statement)
+            entities = self.c.fetchall()
+            print(entities)
  
     #Adding entities/rows to the table <<table_name>>
     def add_entity(self,table_name,column,value):
@@ -107,3 +112,11 @@ DUMMY_SUMMARIES=['sunny','windy','cloudy']
 for index in range (0,len(DUMMY_RESPONSES)):
     active_database.add_entity(WEATHER_REQUEST_TABLE_NAME,f'{REQUEST_RESPONSE_STATUS_COLUMN_NAME}, {REQUEST_CITY_ID_COLUMN_NAME}, {REQUEST_SUMMARY_COLUMN_NAME}',f'"{DUMMY_RESPONSES[index]}",{DUMMY_CITY_IDS[index]},"{DUMMY_SUMMARIES[index]}"')
 
+
+
+#Create a history endpoint that returns data for the 5 most recent successful 
+#    requests to the weather endpoint. Include the timestamp, city name, and 
+#    a summary of the weather data returned for each request.
+    
+
+active_database.close_database()
