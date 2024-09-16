@@ -1,3 +1,5 @@
+from SQLite_Database import SQLiteDatabase
+from Retrieve_Weather_Data import Get_Weather
 from flask import Flask, request
 from werkzeug.exceptions import HTTPException
 
@@ -29,3 +31,15 @@ def handle_exception(e):
     return response
 
 app.run()
+
+
+#open the database made in <<Initiate_Database.py>> 
+DATABASE_NAME = 'RA2_Project_Database'
+active_database = SQLiteDatabase(DATABASE_NAME)
+    
+#ToDo: save API key securely
+API_KEY = "123456"
+LATITUDE = 12
+LONGITUDE = 50
+
+Get_Weather (API_KEY,LATITUDE,LONGITUDE)
